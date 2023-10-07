@@ -106,17 +106,22 @@ export default {
         })
       }
       let response = await fetch(url, options);
-      if (response.ok) {
+      console.log('fdsfsd', response)
+      if (response.status === 200) {
         let json = await response.json();
-        const data = json.suggestions[0].data;
-
-        this.data = {
-          id: uuidv4(),
-          address: data.address.value,
-          ogrn: data.ogrn,
-          inn: data.inn,
-          registrationDate: data.okved_type,
+        if(json.suggestions.length){
+          const data = json.suggestions[0].data;
+          this.data = {
+            id: uuidv4(),
+            address: data.address.value,
+            ogrn: data.ogrn,
+            inn: data.inn,
+            registrationDate: data.okved_type,
+          }
+        } else {
+          alert("По такому ИНН ничего не найдено");
         }
+
       } else {
         alert("Ошибка HTTP: " + response.status);
       }
