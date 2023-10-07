@@ -106,7 +106,6 @@ export default {
         })
       }
       let response = await fetch(url, options);
-      console.log('fdsfsd', response)
       if (response.status === 200) {
         let json = await response.json();
         if(json.suggestions.length){
